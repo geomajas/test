@@ -1,0 +1,172 @@
+<!--
+  ~ This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
+  ~
+  ~ Copyright 2008-2013 Geosparc nv, http://www.geosparc.com/, Belgium.
+  ~
+  ~ The program is available in open source according to the GNU Affero
+  ~ General Public License. All contributions in this program are covered
+  ~ by the Geomajas Contributors License Agreement. For full licensing
+  ~ details, see LICENSE.txt in the project root.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>org.geomajas.project</groupId>
+		<artifactId>geomajas-parents</artifactId>
+		<version>2.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>org.geomajas</groupId>
+	<artifactId>geomajas-parent</artifactId>
+
+	<name>Geomajas parent module</name>
+	<description>
+		Geomajas is a component framework for building rich Internet applications (RIA) with sophisticated capabilities
+		for the display, analysis and management of geographic information. It is a building block that allows
+		developers to add maps and other geographic data capabilities to their web applications.
+	</description>
+	<url>http://www.geomajas.org/</url>
+
+	<organization>
+		<name>Geosparc</name>
+		<url>http://www.geosparc.com</url>
+	</organization>
+	<mailingLists>
+		<mailingList>
+			<name>DEV</name>
+			<post>mailto:majas-dev@geomajas.org</post>
+			<subscribe>http://lists.geomajas.org/mailman/listinfo/majas-dev</subscribe>
+			<unsubscribe>http://lists.geomajas.org/mailman/listinfo/majas-dev</unsubscribe>
+			<archive>http://lists.geomajas.org/pipermail/majas-dev/</archive>
+		</mailingList>
+	</mailingLists>
+	<licenses>
+		<license>
+			<name>GNU Affero General Public License, Version 3</name>
+			<url>http://www.gnu.org/licenses/agpl-3.0.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://jira.geomajas.org</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://ci.geomajas.org/jenkins/</url>
+		<notifiers>
+			<notifier>
+				<type>mail</type>
+				<sendOnError>true</sendOnError>
+				<sendOnFailure>true</sendOnFailure>
+				<sendOnSuccess>false</sendOnSuccess>
+				<sendOnWarning>true</sendOnWarning>
+				<configuration>
+					<address>geomajas-commit@lists.sourceforge.net</address>
+				</configuration>
+			</notifier>
+		</notifiers>
+	</ciManagement>
+
+	<developers>
+		<developer>
+			<id>pieterdg</id>
+			<name>Pieter De Graef</name>
+			<email>pieter.degraef@geosparc.com</email>
+		</developer>
+		<developer>
+			<id>jandm</id>
+			<name>Jan De Moerloose</name>
+			<email>jan.demoerloose@geosparc.com</email>
+		</developer>
+		<developer>
+			<id>joachimvda</id>
+			<name>Joachim Van der Auwera</name>
+			<email>joachim@geosparc.com</email>
+		</developer>
+	</developers>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<id>enforce-versions</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireJavaVersion>
+									<version>1.6</version>
+								</requireJavaVersion>
+								<requireUpperBoundDeps />
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<encoding>utf8</encoding>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.5-DF</version>
+				<configuration>
+					<configLocation>config/geomajas-checkstyle.xml</configLocation>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.geomajas</groupId>
+						<artifactId>geomajas-checkstyle</artifactId>
+						<version>${geomajas-build-tools-version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.1</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<Short-description>${project.name}</Short-description>
+							<Description>${project.description}</Description>
+							<Version>${project.version}</Version>
+							<License>AGPLv3</License>
+							<More-info>http://www.geomajas.org/ and http://www.geosparc.com/</More-info>
+						</manifestEntries>
+						<compress>true</compress>
+						<index>true</index>
+					</archive>
+				</configuration>
+			</plugin>
+			</plugins>
+		</build>
+</project>
